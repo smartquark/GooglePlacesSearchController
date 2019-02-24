@@ -12,21 +12,24 @@ import MapKit
 import GooglePlacesSearchController
 
 class ViewController: UIViewController {
-    let GoogleMapsAPIServerKey = "YOUR_KEY"
+    let GoogleMapsAPIServerKey = "AIzaSyAfTQ6aQNYW2Edx_oWYdqqfTQG69801X5g"
 
     lazy var placesSearchController: GooglePlacesSearchController = {
         let controller = GooglePlacesSearchController(delegate: self,
                                                       apiKey: GoogleMapsAPIServerKey,
-                                                      placeType: .address
+                                                      placeType: .address,
             // Optional: coordinate: CLLocationCoordinate2D(latitude: 55.751244, longitude: 37.618423),
             // Optional: radius: 10,
             // Optional: strictBounds: true,
-            // Optional: searchBarPlaceholder: "Start typing..."
+            searchBarPlaceholder: "Start typing..."
+            
+            
+            
         )
-        //Optional: controller.searchBar.isTranslucent = false
-        //Optional: controller.searchBar.barStyle = .black
-        //Optional: controller.searchBar.tintColor = .white
-        //Optional: controller.searchBar.barTintColor = .black
+        controller.searchBar.isTranslucent = true
+        controller.searchBar.barStyle = .black
+        controller.searchBar.tintColor = .white
+        controller.searchBar.barTintColor = .black
         return controller
     }()
 
@@ -38,6 +41,7 @@ class ViewController: UIViewController {
 extension ViewController: GooglePlacesAutocompleteViewControllerDelegate {
     func viewController(didAutocompleteWith place: PlaceDetails) {
         print(place.description)
+        print("lat: \(String(describing: place.coordinate?.latitude)) lon: \(String(describing: place.coordinate?.longitude))")
         placesSearchController.isActive = false
     }
 }
